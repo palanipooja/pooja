@@ -45,7 +45,7 @@
     <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" show="false" value="&quot;&quot;"/>
-    <elementParameter field="PASSWORD" name="PASS_IMPLICIT_CONTEXT" show="false" value="enc:system.encryption.key.v1:v+hvyiwAIP3lkbaiAMz07a8ro+Kg8CPUmmCGVmtq"/>
+    <elementParameter field="PASSWORD" name="PASS_IMPLICIT_CONTEXT" show="false" value="enc:system.encryption.key.v1:Pg67YtfK62nqdYn4oudDgMejNxOrzBqDW60KeWMZ"/>
     <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" show="false" value="&quot;&quot;"/>
     <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" show="false" value="&quot;&quot;"/>
@@ -80,7 +80,7 @@
     <elementParameter field="TEXT" name="PROPERTIES" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="SCHEMA_DB" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="USER" show="false" value="&quot;&quot;"/>
-    <elementParameter field="PASSWORD" name="PASS" show="false" value="enc:system.encryption.key.v1:W6uYeiHTIxyNTT1inw+8kiCKdb7sicDrWGWWN7lC"/>
+    <elementParameter field="PASSWORD" name="PASS" show="false" value="enc:system.encryption.key.v1:ZMwapsMf89Pv+34aKknezmLiaWAQ9TCHNpkwvPfz"/>
     <elementParameter field="FILE" name="DBFILE" show="false" value="&quot;&quot;"/>
     <elementParameter field="DBTABLE" name="TABLE_STATS" show="false" value="&quot;&quot;"/>
     <elementParameter field="DBTABLE" name="TABLE_LOGS" show="false" value="&quot;&quot;"/>
@@ -112,14 +112,14 @@
   </parameters>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String str*context.value;&#10;System.out.println(&quot;String value is: &quot;+str);"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String str*context.Value;&#10;System.out.println(&quot;String value is: &quot;+str);"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
   </node>
   <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;warning String is&quot;+context.value"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="&quot;warning String is&quot;+context.Value"/>
     <elementParameter field="TEXT" name="CODE" value="42"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -129,14 +129,19 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tRowGenerator_1"/>
     <elementParameter field="TEXT" name="NB_ROWS" show="false" value="10"/>
     <elementParameter field="TABLE" name="VALUES" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="randomstring"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ID"/>
       <elementValue elementRef="ARRAY" value="TalendString.getAsciiRandomString(6 )"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATE"/>
+      <elementValue elementRef="ARRAY" value="TalendDate.formatDate(&quot;yyyy-MM-dd HH:mm:ss&quot; ,myDate )"/>
     </elementParameter>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRowGenerator_1">
-      <column comment="" defaultValue="" key="false" length="-1" name="randomstring" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true">
+      <column comment="" defaultValue="" key="false" length="-1" name="ID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true">
         <additionalField key="FUNCTION_INFO" value="{&quot;NAME&quot;:&quot;getAsciiRandomString&quot;,&quot;PARAMETERS&quot;:[{&quot;PARAMETER_NAME&quot;:&quot;length&quot;,&quot;PARAMETER_VALUE&quot;:&quot;6 &quot;}],&quot;PARAMETER_CLASS_NAME&quot;:&quot;TalendString&quot;}"/>
+      </column>
+      <column comment="" defaultValue="" key="false" length="-1" name="DATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true">
+        <additionalField key="FUNCTION_INFO" value="{&quot;NAME&quot;:&quot;formatDate&quot;,&quot;PARAMETERS&quot;:[{&quot;PARAMETER_NAME&quot;:&quot;pattern&quot;,&quot;PARAMETER_VALUE&quot;:&quot;\&quot;yyyy-MM-dd HH:mm:ss\&quot; &quot;},{&quot;PARAMETER_NAME&quot;:&quot;date&quot;,&quot;PARAMETER_VALUE&quot;:&quot;myDate &quot;}],&quot;PARAMETER_CLASS_NAME&quot;:&quot;TalendDate&quot;}"/>
       </column>
     </metadata>
   </node>
@@ -154,15 +159,20 @@
     <elementParameter field="CHECK" name="PRINT_COLNAMES" show="false" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" show="false" value="false"/>
     <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="randomstring"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ID"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATE"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_1">
-      <column comment="" defaultValue="" key="false" length="-1" name="randomstring" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true">
+      <column comment="" defaultValue="" key="false" length="-1" name="ID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true">
         <additionalField key="FUNCTION_INFO" value="{&quot;NAME&quot;:&quot;getAsciiRandomString&quot;,&quot;PARAMETERS&quot;:[{&quot;PARAMETER_NAME&quot;:&quot;length&quot;,&quot;PARAMETER_VALUE&quot;:&quot;6 &quot;}],&quot;PARAMETER_CLASS_NAME&quot;:&quot;TalendString&quot;}"/>
+      </column>
+      <column comment="" defaultValue="" key="false" length="-1" name="DATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true">
+        <additionalField key="FUNCTION_INFO" value="{&quot;NAME&quot;:&quot;formatDate&quot;,&quot;PARAMETERS&quot;:[{&quot;PARAMETER_NAME&quot;:&quot;pattern&quot;,&quot;PARAMETER_VALUE&quot;:&quot;\&quot;yyyy-MM-dd HH:mm:ss\&quot; &quot;},{&quot;PARAMETER_NAME&quot;:&quot;date&quot;,&quot;PARAMETER_VALUE&quot;:&quot;myDate &quot;}],&quot;PARAMETER_CLASS_NAME&quot;:&quot;TalendDate&quot;}"/>
       </column>
     </metadata>
   </node>
@@ -191,13 +201,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_40ad2ada-0d08-4c68-bb4f-5217e8c43b5c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>XgH361rGA+xBV8u3cAnwJvt6qcPhk12Ecd0VHmFE8ex3/pb4ii5acqlmsm/z1ueCRPNwZ+RmVW9+&#13;
-m2SL/PAVgg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_65c581bb-deff-464b-a4e4-6556529334e9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ug26tm9CPaL593K7KdTmGORQO/tvILuAIxC1WF7tvKiNfaNq6hR1z31gxqHiNEX2LjtNdAtAL+lo&#13;
-DM2feXE+2A==</DigestValue></Reference></SignedInfo><SignatureValue>Nxrnz0ctDcxCmLFHLDGsT0WiQ3nESKmlrLWEOrkK86urXZBSNesBFRn4KyGjknZ3CCL3NbacGehn&#13;
-lg1sXiYlAjUtb2pAGRbjXphtfVSIB8tLYFiKmytH8BFO4xvhitf7W3ieTQmfhIoQGBT0ipUFVD3g&#13;
-Tqk+Lf/LBFqwLFNDkJ9m/8F2x6mjYDV6Mbl1P2f8vsXS+Bi32G5e1ZOdoWDJ6P0xwneqht0oqKBt&#13;
-aPSpdiZxfSXznBXj0jyRDQLrREigkcwEhPzNgl3R7aA50Fma1dOUvGoAgQ974p2iMJNLn5NXaU7y&#13;
-7XrMX4FQpjdLklDWJxBt66APtmiKS4/Rud7OXg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bbb0c8d8-48dd-4ffa-9de2-fe76bbfdfd7d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8Gktiv3ah1naMWonunlg60j8+FcBhu8M0gXfKPU96Nn/c3+tDcvDssLCPzxt796xATNkrQHe4Y0g&#13;
+H00qp2WwKw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_28bf058c-f0ad-4000-931a-6bdb9a8c74f0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ASPSIdFMjjay+w4t0RWt6VPswQRvcy3cHnTJZmsgxSUHZ6pk5s0353N78M7r4pZls/OkM2JWVdI7&#13;
+e2lLGy5uCg==</DigestValue></Reference></SignedInfo><SignatureValue>LrI9uNd7LEBwefuFt+jHER/QHAyh/w6AiX6VZh4rKUNV3Cmv4pdXAvWg/3DA8xQJVYFjN3smGC96&#13;
++/gWaO2vdGhjZe7MUKZ+fZ1yRSrTwMjJ4tpfm3qURUBm8Msua6psenO5x+N27oN7jK4RzGG63cX8&#13;
+/pfCyUXHFNCSYmMVdYG1bUuH/8XDtpj0QGIxn+nM5th4394t809gEYTOMxQZSwAYHj28RNGUlrlj&#13;
+ZktzX9kD6km4wxsAym01M3nooIaQoPslNdE3F4o5Sv4frrTwPxEDFzvWZ8x1aK8HEUqazTYPaH4J&#13;
+VAfwpZwYSXjQmVKWTYgMo6Hm57RwJ5MAoRxMQA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -219,4 +229,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_65c581bb-deff-464b-a4e4-6556529334e9" Target="#_40ad2ada-0d08-4c68-bb4f-5217e8c43b5c"><Timestamp>2022-06-29 13:44:24</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_28bf058c-f0ad-4000-931a-6bdb9a8c74f0" Target="#_bbb0c8d8-48dd-4ffa-9de2-fe76bbfdfd7d"><Timestamp>2022-06-30 09:43:36</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
